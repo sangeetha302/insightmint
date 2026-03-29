@@ -46,7 +46,7 @@ app.use('/api/recommend',      recommendRoutes);
 app.use('/api/feedback',           require('./routes/feedback'));
 app.use('/api/userdata',           require('./routes/userData'));
 app.use('/api/summarizer-history', require('./routes/summarizerHistory'));
-app.use('/api/study-rooms', require('./routes/studyroom_routes'));
+app.use('/api/study-rooms', require('./routes/roomRoutes'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'InsightMint API running' }));
 
