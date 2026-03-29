@@ -46,7 +46,7 @@ app.use('/api/recommend',      recommendRoutes);
 app.use('/api/feedback',           require('./routes/feedback'));
 app.use('/api/userdata',           require('./routes/userData'));
 app.use('/api/summarizer-history', require('./routes/summarizerHistory'));
-app.use('/api/study-rooms', require('./routes/studyRoom_routes'))
+app.use('/api/study-rooms', require('./routes/studyroom'))
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'InsightMint API running' }));
 
@@ -64,3 +64,7 @@ cron.schedule('0 9 * * *', async () => {
 });
 
 app.listen(PORT, () => console.log(`🚀 InsightMint server running on http://localhost:${PORT}`));
+
+app.get('/api', (req, res) => {
+  res.send('API is working 🚀');
+});
