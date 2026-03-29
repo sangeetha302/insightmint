@@ -1,0 +1,405 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* =============================================
+   DARK THEME — Premium Deep Space
+   ============================================= */
+:root,
+html.dark {
+  /* Backgrounds — rich deep navy, not pure black */
+  --bg-primary:       #06080f;
+  --bg-secondary:     #0c0e1a;
+  --bg-tertiary:      #101320;
+  --bg-card:          rgba(20, 24, 42, 0.80);
+  --bg-input:         rgba(20, 24, 42, 0.92);
+  --bg-glass:         rgba(255, 255, 255, 0.04);
+
+  /* Borders — subtle blue-tinted */
+  --border-default:   rgba(140, 150, 210, 0.14);
+  --border-medium:    rgba(140, 150, 210, 0.22);
+  --border-strong:    rgba(140, 150, 210, 0.35);
+
+  /* Text */
+  --text-primary:     #f4f5fb;
+  --text-secondary:   rgba(228, 231, 252, 0.92);
+  --text-muted:       rgba(200, 208, 240, 0.68);
+  --text-placeholder: rgba(180, 190, 225, 0.40);
+
+  /* Accent — Electric Indigo/Violet */
+  --accent-primary:   #6366f1;
+  --accent-light:     #818cf8;
+  --accent-dim:       rgba(99, 102, 241, 0.12);
+  --accent-border:    rgba(99, 102, 241, 0.25);
+
+  /* Secondary accent — Cyan electric */
+  --accent2-primary:  #22d3ee;
+  --accent2-dim:      rgba(34, 211, 238, 0.10);
+
+  /* Nav */
+  --nav-bg:           rgba(6, 8, 15, 0.88);
+  --nav-border:       rgba(120, 130, 200, 0.10);
+  --mobile-menu-bg:   rgba(8, 10, 20, 0.98);
+
+  /* Scrollbar */
+  --scrollbar-track:  #0c0e1a;
+  --scrollbar-thumb:  #6366f1;
+
+  /* Radial bg glows */
+  --bg-radial-1:      rgba(99, 102, 241, 0.05);
+  --bg-radial-2:      rgba(139, 92, 246, 0.04);
+  --bg-radial-3:      rgba(34, 211, 238, 0.03);
+
+  /* Shadows */
+  --shadow-accent:    rgba(99, 102, 241, 0.30);
+  --shadow-card:      rgba(0, 0, 0, 0.35);
+
+  /* Buttons */
+  --btn-ghost-text:   rgba(225, 228, 250, 0.90);
+  --btn-ghost-border: rgba(120, 130, 200, 0.18);
+  --btn-ghost-hover:  rgba(120, 130, 200, 0.08);
+
+  /* Tags */
+  --tag-bg:           rgba(99, 102, 241, 0.12);
+  --tag-border:       rgba(99, 102, 241, 0.22);
+  --tag-text:         #c7d2fe;
+
+  /* Chat */
+  --chat-user-bg:     rgba(99, 102, 241, 0.15);
+  --chat-user-border: rgba(99, 102, 241, 0.22);
+  --chat-ai-bg:       rgba(16, 19, 32, 0.70);
+  --chat-ai-border:   rgba(120, 130, 200, 0.08);
+
+  /* Components */
+  --suggestion-bg:    rgba(16, 19, 32, 0.70);
+  --suggestion-border:rgba(120, 130, 200, 0.10);
+  --quiz-item-bg:     rgba(16, 19, 32, 0.50);
+  --roadmap-step-bg:  rgba(16, 19, 32, 0.50);
+  --flashcard-bg:     rgba(16, 19, 32, 0.75);
+  --flashcard-answer-bg: rgba(99, 102, 241, 0.06);
+}
+
+/* =============================================
+   LIGHT THEME — Clean Slate Premium
+   ============================================= */
+html.light {
+  --bg-primary:       #f8f9ff;
+  --bg-secondary:     #ffffff;
+  --bg-tertiary:      #f3f4fd;
+  --bg-card:          rgba(255, 255, 255, 0.95);
+  --bg-input:         rgba(255, 255, 255, 0.98);
+  --bg-glass:         rgba(255, 255, 255, 0.75);
+
+  --border-default:   rgba(99, 102, 241, 0.12);
+  --border-medium:    rgba(99, 102, 241, 0.18);
+  --border-strong:    rgba(99, 102, 241, 0.32);
+
+  --text-primary:     #0a0b1a;
+  --text-secondary:   rgba(10, 11, 26, 0.80);
+  --text-muted:       rgba(10, 11, 26, 0.55);
+  --text-placeholder: rgba(10, 11, 26, 0.32);
+
+  --accent-primary:   #4f46e5;
+  --accent-light:     #6366f1;
+  --accent-dim:       rgba(79, 70, 229, 0.08);
+  --accent-border:    rgba(79, 70, 229, 0.22);
+
+  --accent2-primary:  #0891b2;
+  --accent2-dim:      rgba(8, 145, 178, 0.08);
+
+  --nav-bg:           rgba(248, 249, 255, 0.94);
+  --nav-border:       rgba(99, 102, 241, 0.12);
+  --mobile-menu-bg:   rgba(255, 255, 255, 0.99);
+
+  --scrollbar-track:  #f0f1ff;
+  --scrollbar-thumb:  #6366f1;
+
+  --bg-radial-1:      rgba(99, 102, 241, 0.05);
+  --bg-radial-2:      rgba(139, 92, 246, 0.03);
+  --bg-radial-3:      rgba(34, 211, 238, 0.03);
+
+  --shadow-accent:    rgba(79, 70, 229, 0.18);
+  --shadow-card:      rgba(99, 102, 241, 0.06);
+
+  --btn-ghost-text:   rgba(15, 16, 35, 0.78);
+  --btn-ghost-border: rgba(15, 16, 35, 0.14);
+  --btn-ghost-hover:  rgba(99, 102, 241, 0.06);
+
+  --tag-bg:           rgba(79, 70, 229, 0.08);
+  --tag-border:       rgba(79, 70, 229, 0.20);
+  --tag-text:         #4f46e5;
+
+  --chat-user-bg:     rgba(79, 70, 229, 0.10);
+  --chat-user-border: rgba(79, 70, 229, 0.18);
+  --chat-ai-bg:       rgba(255, 255, 255, 0.90);
+  --chat-ai-border:   rgba(99, 102, 241, 0.12);
+
+  --suggestion-bg:    rgba(255, 255, 255, 0.85);
+  --suggestion-border:rgba(99, 102, 241, 0.15);
+  --quiz-item-bg:     rgba(255, 255, 255, 0.85);
+  --roadmap-step-bg:  rgba(248, 249, 255, 0.80);
+  --flashcard-bg:     rgba(255, 255, 255, 0.95);
+  --flashcard-answer-bg: rgba(79, 70, 229, 0.05);
+}
+
+/* =============================================
+   BASE
+   ============================================= */
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', 'DM Sans', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 10% 0%,  var(--bg-radial-1) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 90% 10%, var(--bg-radial-2) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 50% 90%, var(--bg-radial-3) 0%, transparent 70%);
+    background-attachment: fixed;
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 9999px; opacity: 0.5; }
+  ::-webkit-scrollbar-thumb:hover { opacity: 1; }
+
+  ::selection { background: rgba(99, 102, 241, 0.22); color: var(--text-primary); }
+}
+
+/* =============================================
+   COMPONENTS
+   ============================================= */
+@layer components {
+
+  /* Glass card — premium frosted */
+  .glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.04) inset,
+      0 4px 24px var(--shadow-card);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .glass-card:hover {
+    border-color: var(--border-medium);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 8px 32px var(--shadow-card);
+  }
+
+  /* Primary button — indigo gradient */
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-200 active:scale-95 inline-flex items-center gap-2;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 12px rgba(99,102,241,0.30), inset 0 1px 0 rgba(255,255,255,0.15);
+    letter-spacing: -0.01em;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    box-shadow: 0 4px 20px rgba(99,102,241,0.45), inset 0 1px 0 rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0) scale(0.98); }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 inline-flex items-center gap-2;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--btn-ghost-text);
+    border: 1px solid var(--btn-ghost-border);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    background: var(--btn-ghost-hover);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+
+  /* Input field */
+  .input-field {
+    @apply rounded-xl px-4 py-3 focus:outline-none transition-all duration-200 w-full;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-input);
+    border: 1px solid var(--border-medium);
+    color: var(--text-primary);
+    font-size: 14px;
+  }
+  .input-field::placeholder { color: var(--text-placeholder); }
+  .input-field:focus {
+    border-color: rgba(99, 102, 241, 0.55);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+  }
+
+  /* Tags */
+  .tag {
+    @apply px-3 py-1 rounded-full text-xs font-medium;
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    color: var(--tag-text);
+  }
+
+  /* Nav links */
+  .nav-link {
+    @apply transition-all duration-200 text-sm font-medium px-1;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+  }
+  .nav-link:hover { color: var(--text-primary); }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    @apply w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 cursor-pointer;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    color: var(--accent-light);
+  }
+  .theme-toggle:hover {
+    background: rgba(99, 102, 241, 0.20);
+    transform: scale(1.08);
+  }
+
+  /* Section title */
+  .section-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+  }
+
+  /* Glow border — for highlighted cards */
+  .glow-border {
+    border: 1px solid transparent;
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)),
+                      linear-gradient(135deg, #6366f1, #8b5cf6, #22d3ee);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+}
+
+/* =============================================
+   FONTS
+   ============================================= */
+.font-display { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+.font-body    { font-family: 'Inter', sans-serif; }
+.font-mono    { font-family: 'JetBrains Mono', monospace; }
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-18px); }
+}
+@keyframes slideUp {
+  0%   { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+@keyframes fadeIn {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes themeSwitch {
+  0%   { transform: rotate(0deg)   scale(1); }
+  50%  { transform: rotate(180deg) scale(0.8); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(99,102,241,0.3); }
+  50%       { box-shadow: 0 0 30px rgba(99,102,241,0.6); }
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-float        { animation: float 6s ease-in-out infinite; }
+.animate-slide-up     { animation: slideUp 0.45s ease-out forwards; }
+.animate-fade-in      { animation: fadeIn 0.4s ease-out forwards; }
+.animate-theme-switch { animation: themeSwitch 0.5s ease-in-out; }
+.shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.05) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* =============================================
+   MOBILE RESPONSIVE UTILITIES
+   ============================================= */
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* Touch-friendly tap targets */
+@media (max-width: 640px) {
+  .btn-primary, .btn-ghost {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  /* Prevent text overflow on mobile */
+  .glass-card {
+    word-break: break-word;
+  }
+
+  /* Reduce hero text on mobile */
+  .font-display.text-5xl { font-size: 2rem; }
+  .font-display.text-4xl { font-size: 1.75rem; }
+
+  /* Full width inputs on mobile */
+  .input-field { font-size: 16px; } /* Prevents iOS zoom on focus */
+
+  /* Tab bars scroll horizontally */
+  .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+
+  /* Better touch targets */
+  button, a { min-height: 40px; }
+
+  /* Navbar mobile menu full width */
+  nav .max-w-7xl { padding-left: 12px; padding-right: 12px; }
+}
+
+/* Tablet fixes */
+@media (max-width: 768px) {
+  .section-title { font-size: 1.5rem; }
+
+  /* Stack cards vertically on tablet */
+  .lg\:col-span-2 { grid-column: span 1; }
+}
+
+/* Prevent horizontal scroll on body */
+body { overflow-x: hidden; }
