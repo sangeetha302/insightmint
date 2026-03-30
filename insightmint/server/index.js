@@ -25,7 +25,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://your-vercel-url.vercel.app'
+    'https://insightmint-three.vercel.app',  // ← your exact Vercel URL
+    'https://insightmint.vercel.app',
   ],
   credentials: true
 }));
