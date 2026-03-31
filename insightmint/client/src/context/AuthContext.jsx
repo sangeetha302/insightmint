@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import api from '../utils/api';
 
 const AuthContext = createContext(null);
 
@@ -125,7 +126,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const { data } = await axios.post('/api/auth/login', { email, password });
+    const { data } = await api.post('/auth/login', { email, password });
     // Clear old data first, then restore this user's data from DB
     clearLearningData();
     localStorage.setItem('insightmint_token', data.token);
@@ -139,7 +140,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signup = async (name, email, password) => {
-    const { data } = await axios.post('/api/auth/signup', { name, email, password });
+    const { data } = await api.post('/auth/signup', { name, email, password });
     clearLearningData();
     localStorage.setItem('insightmint_token', data.token);
     localStorage.setItem('insightmint_user', JSON.stringify(data.user));

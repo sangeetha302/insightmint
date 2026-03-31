@@ -22,14 +22,30 @@ const { sendDailyReminder } = require('./utils/emailService');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const cors = require('cors');
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://insightmint-three.vercel.app',  // ← your exact Vercel URL
-    'https://insightmint.vercel.app',
-  ],
-  credentials: true
+  origin: function(origin, callback) {
+    // Allow all Vercel domains + localhost
+    const allowed = [
+      'http://localhost:5173',
+      'http://localhost:3000',
+    ];
+    // Allow any vercel.app domain
+    if (!origin || allowed.includes(origin) || 
+        origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// Handle preflight for ALL routes
+app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
