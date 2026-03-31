@@ -20,9 +20,12 @@ export const searchVideos = (topic) => api.get(`/videos/search?topic=${encodeURI
 export const getSummary = (topic, videoTitle) => api.post('/ai/summary', { topic, videoTitle, language: getLang() });
 export const getFlashcards = (topic) => api.post('/ai/flashcards', { topic, language: getLang() });
 export const getQuiz = (topic) => api.post('/ai/quiz', { topic, language: getLang() });
+export const getFlowchart = (topic, type = 'concept') =>
+  api.post('/ai/flowchart', { topic, type });
 export const getRoadmap = (topic) => api.post('/roadmap/generate', { topic, language: getLang() });
 export const sendChat = (message, topic, history = []) => api.post('/ai/chat', { message, topic, history, language: getLang() });
 export const saveProgress = (data) => api.post('/user/progress', data);
 export const getProfile = () => api.get('/user/profile');
+
 
 export default api;

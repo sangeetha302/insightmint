@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Loader2, GitBranch, RefreshCw, Download, ZoomIn, ZoomOut } from 'lucide-react';
+import { getFlowchart } from '../utils/api';
 
-const api = axios.create({ baseURL: '/api' });
+//const api = axios.create({ baseURL: '/api' });
 api.interceptors.request.use(cfg => {
   const token = localStorage.getItem('insightmint_token');
   if (token) cfg.headers.Authorization = `Bearer ${token}`;
@@ -126,14 +127,19 @@ export default function Flowchart({ topic }) {
   ];
 
   const generateFlowchart = async (type = flowType) => {
-    setLoading(true); setError(''); setFlowData(null);
-    try {
-      const { data } = await api.post('/ai/flowchart', { topic, type });
-      setFlowData(data);
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate. Check server is running.');
-    } finally { setLoading(false); }
-  };
+  setLoading(true);
+  setError('');
+  setFlowData(null);
+
+  try {
+    const { data } = await getFlowchart(topic, type); // ✅ FIXED
+    setFlowData(data);
+  } catch (err) {
+    setError(err.response?.data?.error || 'Failed to generate. Check server is running.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     generateFlowchart();
