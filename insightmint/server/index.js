@@ -17,37 +17,31 @@ const communityRoutes     = require('./routes/community');
 const nlpRoutes           = require('./routes/nlp');
 const learningStyleRoutes = require('./routes/learningStyle');
 const recommendRoutes     = require('./routes/recommend');
+
 const { sendDailyReminder } = require('./utils/emailService');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
+// ✅ CORS FIX (for deployment + local)
 app.use(cors({
-  origin: function(origin, callback) {
-    const allowed = [
-      'http://localhost:5173',
-      'http://localhost:3000',
-    ];
-    if (!origin || allowed.includes(origin) || origin.endsWith('.vercel.app')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true,
-  methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization'],
 }));
 
-// Handle preflight for ALL routes
+// ✅ Body parsers
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/insightmint')
+// ✅ MongoDB connection (STRICT for deployment)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ MongoDB connected'))
-  .catch(() => console.log('⚠️  MongoDB not connected - running in mock mode'));
+  .catch((err) => {
+    console.error('❌ MongoDB connection failed:', err.message);
+    process.exit(1); // stop server if DB fails
+  });
 
+// ✅ Routes
 app.use('/api/auth',          authRoutes);
 app.use('/api/videos',        videoRoutes);
 app.use('/api/ai',            aiRoutes);
@@ -58,31 +52,55 @@ app.use('/api/roadmap',       roadmapRoutes);
 app.use('/api/quiz',          quizRoutes);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/community',     communityRoutes);
-app.use('/api/nlp',          nlpRoutes);
+app.use('/api/nlp',           nlpRoutes);
 app.use('/api/learning-style', learningStyleRoutes);
 app.use('/api/recommend',      recommendRoutes);
 app.use('/api/feedback',           require('./routes/feedback'));
 app.use('/api/userdata',           require('./routes/userData'));
 app.use('/api/summarizer-history', require('./routes/summarizerHistory'));
-app.use('/api/study-rooms', require('./routes/roomRoutes'));
+app.use('/api/study-rooms',        require('./routes/roomRoutes'));
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'InsightMint API running' }));
+// ✅ Health check route (important for Render)
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'InsightMint API running' });
+});
 
+// ✅ Base route
+app.get('/', (req, res) => {
+  res.send('🚀 InsightMint Backend Running');
+});
+
+// ✅ Cron job (email reminders)
 cron.schedule('0 9 * * *', async () => {
   console.log('📧 Running daily reminder cron job...');
   try {
     const { notifPrefs } = require('./routes/notifications');
     const activeUsers = Object.values(notifPrefs).filter(p => p.emailEnabled && p.email);
+
     for (const prefs of activeUsers) {
-      if (prefs.frequency === 'daily' || (prefs.frequency === 'weekly' && new Date().getDay() === 1)) {
-        await sendDailyReminder({ to: prefs.email, userName: prefs.userName || 'Learner', stats: prefs.lastStats || { videosWatched: 0, roadmapsActive: 0, topicsDone: 0 }, roadmaps: prefs.lastRoadmaps || [], streak: prefs.streak || 0 });
+      if (
+        prefs.frequency === 'daily' ||
+        (prefs.frequency === 'weekly' && new Date().getDay() === 1)
+      ) {
+        await sendDailyReminder({
+          to: prefs.email,
+          userName: prefs.userName || 'Learner',
+          stats: prefs.lastStats || {
+            videosWatched: 0,
+            roadmapsActive: 0,
+            topicsDone: 0
+          },
+          roadmaps: prefs.lastRoadmaps || [],
+          streak: prefs.streak || 0
+        });
       }
     }
-  } catch (err) { console.error('Cron job error:', err.message); }
+  } catch (err) {
+    console.error('❌ Cron job error:', err.message);
+  }
 });
 
-app.listen(PORT, () => console.log(`🚀 InsightMint server running on http://localhost:${PORT}`));
-
-app.get('/api', (req, res) => {
-  res.send('API is working 🚀');
+// ✅ Start server (Render-friendly)
+app.listen(PORT, () => {
+  console.log(`🚀 InsightMint server running on port ${PORT}`);
 });
