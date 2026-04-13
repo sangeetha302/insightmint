@@ -1,15 +1,13 @@
 import axios from 'axios';
 
-// ✅ Use env variable for production, fallback for local
-const BASE_URL = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL}/api`
-  : 'http://localhost:5000/api';
+// ✅ FIXED: Direct backend URL
+const BASE_URL = "https://insightmint-backend-3zax.onrender.com/api";
 
 const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// ✅ Attach token automatically
+// Attach token
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('insightmint_token');
   if (token) {
@@ -18,10 +16,10 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-// ✅ Language helper
+// Language helper
 const getLang = () => localStorage.getItem('insightmint_language') || 'en';
 
-// ✅ API calls
+// API calls
 export const searchVideos = (topic) =>
   api.get(`/videos/search?topic=${encodeURIComponent(topic)}`);
 
