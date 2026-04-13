@@ -1,16 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Loader2, GitBranch, RefreshCw, Download, ZoomIn, ZoomOut } from 'lucide-react';
-import { getFlowchart } from '../utils/api';
-
-//const api = axios.create({ baseURL: '/api' });
+const api = axios.create({ baseURL: '/api' });
 api.interceptors.request.use(cfg => {
   const token = localStorage.getItem('insightmint_token');
   if (token) cfg.headers.Authorization = `Bearer ${token}`;
   return cfg;
 });
 
-// ── Renders a flowchart from structured data ──────────────
+// â”€â”€ Renders a flowchart from structured data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function FlowchartRenderer({ nodes, edges }) {
   const [zoom, setZoom] = useState(1);
 
@@ -121,9 +119,9 @@ export default function Flowchart({ topic }) {
   const [flowType, setFlowType]   = useState('concept');
 
   const FLOW_TYPES = [
-    { id: 'concept',   label: '📚 Concept Flow',    desc: 'How the topic concepts connect' },
-    { id: 'process',   label: '⚙️ Process Flow',    desc: 'Step-by-step process/algorithm' },
-    { id: 'decision',  label: '🔀 Decision Tree',   desc: 'Decisions and branches' },
+    { id: 'concept',   label: 'ðŸ“š Concept Flow',    desc: 'How the topic concepts connect' },
+    { id: 'process',   label: 'âš™ï¸ Process Flow',    desc: 'Step-by-step process/algorithm' },
+    { id: 'decision',  label: 'ðŸ”€ Decision Tree',   desc: 'Decisions and branches' },
   ];
 
   const generateFlowchart = async (type = flowType) => {
@@ -132,7 +130,7 @@ export default function Flowchart({ topic }) {
   setFlowData(null);
 
   try {
-    const { data } = await getFlowchart(topic, type); // ✅ FIXED
+    const { data } = await getFlowchart(topic, type); // âœ… FIXED
     setFlowData(data);
   } catch (err) {
     setError(err.response?.data?.error || 'Failed to generate. Check server is running.');
@@ -151,7 +149,7 @@ export default function Flowchart({ topic }) {
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <h2 className="font-display font-bold text-lg flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <GitBranch size={18} style={{ color: 'var(--accent-primary)' }} />
-          Flowchart — {topic}
+          Flowchart â€” {topic}
         </h2>
         <button onClick={() => generateFlowchart()}
           disabled={loading}
