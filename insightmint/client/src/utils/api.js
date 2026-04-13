@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // ✅ FIXED: Direct backend URL
-const BASE_URL = "https://insightmint-backend-3zax.onrender.com/api";
+
 
 const api = axios.create({
   baseURL: "https://insightmint-backend-3zax.onrender.com/api",
