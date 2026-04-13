@@ -31,7 +31,7 @@ const FILE_ICONS = {
 const ACCEPTED = '.pdf,.txt,.png,.jpg,.jpeg,.doc,.docx,.md';
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
-const api = axios.create({ baseURL: '/api' });
+const api = axios.create({ baseURL: 'https://insightmint-backend-3zax.onrender.com/api' });
 api.interceptors.request.use(cfg => {
   const token = localStorage.getItem('insightmint_token');
   if (token) cfg.headers.Authorization = `Bearer ${token}`;

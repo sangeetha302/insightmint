@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import api from '../utils/api';
+import api from '../api';
 
 const AuthContext = createContext(null);
 
@@ -25,7 +26,7 @@ const clearLearningData = () =>
 // ── Pull all user data from MongoDB → localStorage ───────────
 const restoreFromDB = async (token) => {
   try {
-    const { data } = await axios.get('/api/userdata', {
+    const { data } = await api.get('/userdata', {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -95,7 +96,7 @@ const saveToDB = async (token) => {
 
     if (!Object.keys(payload).length) return; // nothing to save
 
-    await axios.post('/api/userdata/sync', payload, {
+    await api.post('/userdata/sync', payload, {
       headers: { Authorization: `Bearer ${token}` }
     });
     console.log('✅ Data saved to MongoDB');

@@ -6,7 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
-const api = axios.create({ baseURL: '/api' });
+const api = axios.create({ baseURL: 'https://insightmint-backend-3zax.onrender.com/api' });
 
 const SUGGESTIONS = [
   { label: 'Machine Learning', emoji: '🤖' },

@@ -4,7 +4,7 @@ import axios from 'axios';
 const BASE_URL = "https://insightmint-backend-3zax.onrender.com/api";
 
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: "https://insightmint-backend-3zax.onrender.com/api",
 });
 
 // Attach token

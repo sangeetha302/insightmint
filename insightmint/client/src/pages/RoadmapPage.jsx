@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { downloadNotesPDF } from '../utils/pdf';
 
-const api = axios.create({ baseURL: '/api' });
+const api = axios.create({ baseURL: 'https://insightmint-backend-3zax.onrender.com/api' });
 api.interceptors.request.use(cfg => {
   const token = localStorage.getItem('insightmint_token');
   if (token) cfg.headers.Authorization = `Bearer ${token}`;
